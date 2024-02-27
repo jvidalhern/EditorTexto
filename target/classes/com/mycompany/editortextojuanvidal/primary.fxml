@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" prefHeight="479.0" prefWidth="680.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.editortextojuanvidal.PrimaryController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu fx:id="menuArchivo" mnemonicParsing="false" text="Archivo">
+            <items>
+              <MenuItem fx:id="nuevo" mnemonicParsing="false" onAction="#handleNuevo" onMenuValidation="#handleNuevo" text="Nuevo" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleAbrir" text="Abrir" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleGuardar" text="Guardar" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleGuardarComo" text="Guardar como" />
+                  <Menu fx:id="menuArchivosRecientes" mnemonicParsing="false" text="Archivos recientes">
+                     <items>
+                        <MenuItem mnemonicParsing="false" visible="false" />
+                     </items>
+                  </Menu>
+                  <MenuItem mnemonicParsing="false" onAction="#handleSalir" text="Salir" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edición">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleBuscar" text="Buscar" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleReemplazar" text="Reemplazar" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Formato">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleConvertirAMayusculas" text="Convertir a mayúsculas" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleConvertirAMinusculas" text="Convertir a minúsculas" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleOracionAMayusculas" text="Oración a mayúsculas" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Ver">
+               <items>
+                  <MenuItem fx:id="ocultarVerBarraEstados" mnemonicParsing="false" onAction="#handleOcultarBarraDeEstado" text="Ocultar barra de estado" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Ayuda">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleAcercaDe" text="Acerca de" />
+               </items>
+            </Menu>
+        </menus>
+      </MenuBar>
+      <TabPane fx:id="tabPane">
+         <tabs>
+            <Tab text="nuevo 1">
+               <content>
+                  <TextArea fx:id="textArea" prefHeight="394.0" prefWidth="680.0" />
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+      <HBox fx:id="barraEstado" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label fx:id="longitudLabel" text="Label" />
+            <Label fx:id="numeroLineasLabel" text="Label" />
+            <Label fx:id="posicionLabel" text="Label" />
+            <Label fx:id="codificacionLabel" text="Label" />
+            <Button fx:id="siguienteButton" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#handleSiguiente" text="Siguiente" visible="false">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+         </children>
+      </HBox>       
+   </children>
+</VBox>
