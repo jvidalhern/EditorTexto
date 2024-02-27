@@ -141,6 +141,7 @@ public class PrimaryController {
         // Actualizar la barra de estado con la pestaña actual
         actualizarBarraDeEstado(textArea);
         actualizarPosicionCursor(textArea);
+
     }
 
     /**
@@ -209,6 +210,7 @@ public class PrimaryController {
             areaTexto.caretPositionProperty().addListener((observable, oldValue, newValue) -> {
                 actualizarPosicionCursor(areaTexto);
             });
+            handleArchivosRecientes(ultimoArchivoAbierto, menuArchivosRecientes);
         } else {
             // Mostrar un mensaje de advertencia si ya hay 10 pestañas activas
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -218,7 +220,7 @@ public class PrimaryController {
             alert.showAndWait();
         }
     }
-
+    
     /**
      * Maneja la acción de abrir un archivo en una nueva pestaña. Abre un
      * diálogo de selección de archivo, lee el contenido del archivo
@@ -299,6 +301,9 @@ public class PrimaryController {
 
             // Asignar el último archivo abierto
             ultimoArchivoAbierto = file;
+
+            // Agregar el archivo abierto a la lista de archivos recientes
+            handleArchivosRecientes(file, menuArchivosRecientes);
         }
     }
 
@@ -368,11 +373,10 @@ public class PrimaryController {
      * Maneja la acción de archivos recientes. Agrega el archivo recientemente
      * abierto al menú de archivos recientes.
      */
-    private void handleArchivosRecientes() {
-        // Verificar si hay un archivo recientemente abierto
-        if (ultimoArchivoAbierto != null) {
+    private void handleArchivosRecientes(File ultimoArchivoAbierto, Menu menuArchivosRecientes) {
+        if (ultimoArchivoAbierto != null && menuArchivosRecientes != null) {
             // Construir el nombre del archivo para mostrar en el menú de archivos recientes
-            String nombreArchivo = (++contadorArchivosRecientes) + ": " + ultimoArchivoAbierto.getAbsolutePath();
+            String nombreArchivo = (++contadorArchivosRecientes) + ": " + ultimoArchivoAbierto.getName();
             // Crear un nuevo elemento de menú para el archivo reciente
             MenuItem menuItem = new MenuItem(nombreArchivo);
             // Configurar la acción del elemento de menú para abrir el archivo reciente
@@ -381,13 +385,13 @@ public class PrimaryController {
             // Obtener la lista de elementos de menú del menú de archivos recientes
             ObservableList<MenuItem> items = menuArchivosRecientes.getItems();
 
-            // Si ya hay 5 elementos, eliminar el más antiguo para mantener el límite
-            if (items.size() >= MAX_ARCHIVOS_RECIENTES + 1) {
+            // Si ya hay MAX_ARCHIVOS_RECIENTES elementos, eliminar el más antiguo para mantener el límite
+            if (items.size() >= MAX_ARCHIVOS_RECIENTES) {
                 items.remove(0);
             }
 
-            // Insertar el nuevo elemento justo antes de "Salir" en el menú
-            items.add(items.size() - 1, menuItem); // Agregar justo antes de "Salir"
+            // Agregar el nuevo elemento al final del menú
+            items.add(menuItem);
         }
     }
 
@@ -462,7 +466,7 @@ public class PrimaryController {
 
         // Establecer el último archivo abierto y actualizar la lista de archivos recientes en el menú Archivo
         ultimoArchivoAbierto = archivo;
-        handleArchivosRecientes();
+        handleArchivosRecientes(ultimoArchivoAbierto, menuArchivosRecientes); // Llamar a handleArchivosRecientes con el archivo abierto
     }
 
     /**
