@@ -220,7 +220,7 @@ public class PrimaryController {
             alert.showAndWait();
         }
     }
-    
+
     /**
      * Maneja la acción de abrir un archivo en una nueva pestaña. Abre un
      * diálogo de selección de archivo, lee el contenido del archivo
